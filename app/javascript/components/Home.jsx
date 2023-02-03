@@ -17,19 +17,16 @@ function Home(){
   }, [])
 
   return(
-    <>
-      <h1>Store</h1>
-      <div>
-        {products.map((product, index) => 
-          <div key={`product-${index + 1}`}>
-            <div>{product.sku}</div>
-            <h3>{product.name}</h3>
-            <p>{product.description}</p>
-            <div>{product.price}</div>
-          </div>
-        )};
-      </div>
-    </>
+    <div>
+      {products.map((product, index) => 
+        <div key={`product-${index + 1}`}>
+          <div>{product.sku}</div>
+          <h3>{product.name}</h3>
+          <p>{product.description}</p>
+          <div>{product.price}</div>
+        </div>
+      )};
+    </div>
   )
 }
 
