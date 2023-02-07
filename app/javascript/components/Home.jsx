@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import CardProduct from "./products/card-product";
 
 function Home(){
   const [products, setProducts] = React.useState([])
@@ -17,15 +19,13 @@ function Home(){
   }, [])
 
   return(
-    <div>
-      {products.map((product, index) => 
-        <div key={`product-${index + 1}`}>
-          <div>{product.sku}</div>
-          <h3>{product.name}</h3>
-          <p>{product.description}</p>
-          <div>{product.price}</div>
-        </div>
-      )};
+    <div className="container mt-4">  
+      <Link to="/products/new" className="btn btn-primary">New Product</Link>
+      <div className="d-flex flex-column gap-3 mt-3 mb-4">
+        {products.map((product) =>
+          <CardProduct key={`product-${product.id}`} product={product}/>
+        )}
+      </div>
     </div>
   )
 }
