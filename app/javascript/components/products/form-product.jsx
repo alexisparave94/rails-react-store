@@ -1,33 +1,36 @@
-import React, { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React from "react"
+import { useNavigate, useParams } from "react-router-dom"
 
-function EditProduct(){
-  const navigate = useNavigate()
+function FormProduct(props){
+  const { isNewForm } = props
   const params = useParams()
+  const navigate = useNavigate()
   const [sku, setSku] = React.useState("")
   const [name, setName] = React.useState("")
   const [description, setDescription] = React.useState("")
   const [price, setPrice] = React.useState("")
   const [stock, setStock] = React.useState("")
-  
-  useEffect(() => {
-    const url = `/api/v1/products/${params.id}`
 
-    fetch(url)
-      .then((res) => {
-        if(res.ok)
-          return res.json();
-        throw new Error('Network error');
-      })
-      .then((res) => {
-        setSku(res.sku);
-        setName(res.name);
-        setDescription(res.description);
-        setPrice(res.price);
-        setStock(res.stock);
-      })
-      .catch(console.log)
-  }, [])
+  if(!isNewForm) {
+    useEffect(() => {
+      const url = `/api/v1/products/${params.id}`
+  
+      fetch(url)
+        .then((res) => {
+          if(res.ok)
+            return res.json();
+          throw new Error('Network error');
+        })
+        .then((res) => {
+          setSku(res.sku);
+          setName(res.name);
+          setDescription(res.description);
+          setPrice(res.price);
+          setStock(res.stock);
+        })
+        .catch(console.log)
+    }, [])
+  }
   
   function handleChangeValue(e, setFuntion){
     setFuntion(e.target.value)
@@ -36,14 +39,14 @@ function EditProduct(){
   function handleSubmit(e){
     e.preventDefault();
 
-    const url = `/api/v1/products/${params.id}`
+    const url = isNewForm ? "/api/v1/products" : `/api/v1/products/${params.id}`;
 
     const body = {
       sku, name, description, price, stock
     }
 
     fetch(url, {
-      method: 'PATCH',
+      method: isNewForm ? 'POST' : 'PATCH',
       headers: {
         "Content-Type": "application/json"
       },
@@ -61,7 +64,9 @@ function EditProduct(){
   return (
     <div className="container my-5 d-flex justify-content-center">
       <div className="col-md-4 col-sm-8">
-        <h1 className="text-center">Edit Product</h1>
+        <h1 className="text-center">
+          { isNewForm ? 'New Product' : 'Edit Product' }
+        </h1>
         <form onSubmit = {handleSubmit}>
           <div className="mb-3">
             <label htmlFor="sku" className="form-label">SKU</label>
@@ -120,7 +125,9 @@ function EditProduct(){
             />
           </div>
           <div className="d-grid mb-3">
-            <button type="submit" className="btn btn-primary">Edit Product</button>
+            <button type="submit" className="btn btn-primary">
+              { isNewForm ? 'Create Product' : 'Update Product'}
+            </button>
           </div>
         </form>
       </div>
@@ -128,4 +135,4 @@ function EditProduct(){
   )
 }
 
-export default EditProduct;
+export default FormProduct
