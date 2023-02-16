@@ -22,8 +22,6 @@ function NewProduct(){
       sku, name, description, price, stock
     }
 
-    console.log(body)
-
     fetch(url, {
       method: 'POST',
       headers: {

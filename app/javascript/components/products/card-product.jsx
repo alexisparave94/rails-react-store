@@ -2,7 +2,11 @@ import React from "react"
 import { Link } from "react-router-dom";
 
 function CardProduct(props){
-  const { product } = props
+  const { product, onDeleteProduct } = props
+
+  function handleDeleteProduct() {
+    onDeleteProduct(product.id)
+  }
 
   return (
     <div className="card px-3 py-2">
@@ -16,7 +20,7 @@ function CardProduct(props){
         <div className="d-flex gap-3">
           <Link to={`/products/${product.id}`} className="btn btn-primary">Show</Link>
           <button className="btn btn-primary">Edit</button>
-          <button className="btn btn-danger">Delete</button>
+          <button className="btn btn-danger" onClick={handleDeleteProduct}>Delete</button>
         </div>
       </div>
     </div> 
