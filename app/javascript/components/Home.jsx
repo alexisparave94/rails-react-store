@@ -17,7 +17,7 @@ function Home(){
       .then(setProducts)
       .catch(console.log)
   }, [])
-
+  
   function handleDeleteProduct(id){
     const url = `/api/v1/products/${id}`
 
@@ -41,7 +41,10 @@ function Home(){
       <Link to="/products/new" className="btn btn-primary">New Product</Link>
       <div className="d-flex flex-column gap-3 mt-3 mb-4">
         {products.map((product) =>
-          <CardProduct key={`product-${product.id}`} product={product} onDeleteProduct={handleDeleteProduct} />
+          <CardProduct key={`product-${product.id}`} 
+            product={product} 
+            onDeleteProduct={handleDeleteProduct} 
+          />
         )}
       </div>
     </div>

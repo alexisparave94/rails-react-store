@@ -19,7 +19,7 @@ function CardProduct(props){
         </div>
         <div className="d-flex gap-3">
           <Link to={`/products/${product.id}`} className="btn btn-primary">Show</Link>
-          <button className="btn btn-primary">Edit</button>
+          <Link to={`/products/${product.id}/edit`} className="btn btn-primary">Edit</Link>
           <button className="btn btn-danger" onClick={handleDeleteProduct}>Delete</button>
         </div>
       </div>
